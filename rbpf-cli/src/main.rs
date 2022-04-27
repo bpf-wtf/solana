@@ -185,9 +185,15 @@ native machine code before execting it in the virtual machine.",
                 .short('c')
                 .long("coverage"),
         )
+        .arg(
+            Arg::new("debug")
+                .help("Enable remote debugging")
+                .long("debug"),
+        )
         .get_matches();
 
-    log::set_boxed_logger(Box::new(Logger::new(matches.is_present("verbose")))).unwrap();
+    // BROKEY!!
+    // log::set_boxed_logger(Box::new(Logger::new(matches.is_present("verbose")))).unwrap();
     let config = Config {
         enable_instruction_tracing: matches.is_present("trace")
             || matches.is_present("profile")
@@ -324,7 +330,7 @@ native machine code before execting it in the virtual machine.",
     .unwrap();
     let start_time = Instant::now();
     let result = if matches.value_of("use").unwrap() == "interpreter" {
-        vm.execute_program_interpreted(&mut instruction_meter)
+        vm.execute_program_interpreted(&mut instruction_meter, matches.is_present("debug"))
     } else {
         vm.execute_program_jit(&mut instruction_meter)
     };

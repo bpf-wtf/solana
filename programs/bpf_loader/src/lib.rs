@@ -1187,7 +1187,7 @@ impl Executor for BpfExecutor {
             let result = if self.use_jit {
                 vm.execute_program_jit(&mut instruction_meter)
             } else {
-                vm.execute_program_interpreted(&mut instruction_meter)
+                vm.execute_program_interpreted(&mut instruction_meter, false)
             };
             let after = compute_meter.borrow().get_remaining();
             ic_logger_msg!(
@@ -1385,7 +1385,7 @@ mod tests {
             EbpfVm::<BpfError, TestInstructionMeter>::new(&program, &mut [], vec![input_region])
                 .unwrap();
         let mut instruction_meter = TestInstructionMeter { remaining: 10 };
-        vm.execute_program_interpreted(&mut instruction_meter)
+        vm.execute_program_interpreted(&mut instruction_meter, false)
             .unwrap();
     }
 

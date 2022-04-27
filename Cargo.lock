@@ -1567,6 +1567,29 @@ dependencies = [
 ]
 
 [[package]]
+name = "gdbstub"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7e135587d3f6eee6fa02c4ba174270c2337424e6d852c156942c0840b3c0f5cc"
+dependencies = [
+ "cfg-if 0.1.10",
+ "log",
+ "managed",
+ "num-traits",
+ "paste",
+]
+
+[[package]]
+name = "gdbstub_arch"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e358b9c0e1468eae66099062e47bb502849308b987b74b5e72f1936397c33c16"
+dependencies = [
+ "gdbstub",
+ "num-traits",
+]
+
+[[package]]
 name = "gen-syscall-list"
 version = "1.11.0"
 dependencies = [
@@ -2343,6 +2366,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "managed"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0ca88d725a0a943b096803bd34e73a4437208b6077654cc4ecb2947a5f91618d"
+
+[[package]]
 name = "maplit"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2798,6 +2827,12 @@ dependencies = [
  "smallvec",
  "windows-sys 0.34.0",
 ]
+
+[[package]]
+name = "paste"
+version = "1.0.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0c520e05135d6e763148b6426a837e239041653ba7becd2e538c076c738025fc"
 
 [[package]]
 name = "pbkdf2"
@@ -6120,11 +6155,12 @@ dependencies = [
 [[package]]
 name = "solana_rbpf"
 version = "0.2.27"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3dec11db92171a996e44d36fb1d223233f2cefacf9ba6884b33e5baa92a81d37"
+source = "git+https://github.com/jawilk/rbpf?branch=debug_support_new#89b74a3a281a34dc4ed73d41d123e3f1722d5e72"
 dependencies = [
  "byteorder",
  "combine",
+ "gdbstub",
+ "gdbstub_arch",
  "goblin",
  "hash32",
  "libc",

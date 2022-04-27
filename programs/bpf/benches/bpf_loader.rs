@@ -121,7 +121,7 @@ fn bench_program_alu(bencher: &mut Bencher) {
         println!("Interpreted:");
         assert_eq!(
             SUCCESS,
-            vm.execute_program_interpreted(&mut instruction_meter)
+            vm.execute_program_interpreted(&mut instruction_meter, false)
                 .unwrap()
         );
         assert_eq!(ARMSTRONG_LIMIT, LittleEndian::read_u64(&inner_iter));
@@ -131,7 +131,7 @@ fn bench_program_alu(bencher: &mut Bencher) {
         );
 
         bencher.iter(|| {
-            vm.execute_program_interpreted(&mut instruction_meter)
+            vm.execute_program_interpreted(&mut instruction_meter, false)
                 .unwrap();
         });
         let instructions = vm.get_total_instruction_count();
@@ -274,7 +274,7 @@ fn bench_instruction_count_tuner(_bencher: &mut Bencher) {
         let mut vm = create_vm(&executable, serialized.as_slice_mut(), invoke_context).unwrap();
 
         let mut measure = Measure::start("tune");
-        let _ = vm.execute_program_interpreted(&mut instruction_meter);
+        let _ = vm.execute_program_interpreted(&mut instruction_meter, false);
         measure.stop();
 
         assert_eq!(

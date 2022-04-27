@@ -252,7 +252,7 @@ fn run_program(name: &str) -> u64 {
                 let mut vm =
                     create_vm(&executable, parameter_bytes.as_slice_mut(), invoke_context).unwrap();
                 let result = if i == 0 {
-                    vm.execute_program_interpreted(&mut instruction_meter)
+                    vm.execute_program_interpreted(&mut instruction_meter, false)
                 } else {
                     vm.execute_program_jit(&mut instruction_meter)
                 };
